@@ -19,8 +19,8 @@ To run this Docker:
 
 ```bash
 
-input_dir="/home-local/liarde/Beyond_FA/beyond_fa_microstruct_ad/Inputs"
-output_dir="/home-local/liarde/Beyond_FA/beyond_fa_microstruct_ad/Outputs"
+input_dir=".../input_data"
+output_dir=".../output_data"
 
 mkdir -p $output_dir
 
