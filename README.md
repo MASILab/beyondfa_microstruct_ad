@@ -4,7 +4,7 @@
 To build this Docker container, clone the repository and run the following command in the root directory:
 
 ```bash
-DOCKER_BUILDKIT=1 sudo docker build -t beyondfa_baseline:v1.1.8 .
+DOCKER_BUILDKIT=1 sudo docker build -t beyondfa_da3 .
 ```
 
 The Docker runs the code from `scripts/entrypoint.sh`.
@@ -18,12 +18,13 @@ See `scripts/convert_mha_to_nifti.py` and `scripts/convert_json_to_bvalbvec.py` 
 To run this Docker:
 
 ```bash
-input_dir=".../input_data"
-output_dir=".../output_data"
+
+input_dir="/home-local/liarde/Beyond_FA/beyond_fa_microstruct_ad/Inputs"
+output_dir="/home-local/liarde/Beyond_FA/beyond_fa_microstruct_ad/Outputs"
 
 mkdir -p $output_dir
 
-DOCKER_NOOP_VOLUME="beyondfa_baseline-volume"
+DOCKER_NOOP_VOLUME="beyondfa_da3-volume"
 sudo docker volume create "$DOCKER_NOOP_VOLUME" > /dev/null
 sudo docker run \
     -it \
@@ -34,8 +35,11 @@ sudo docker run \
     --volume $input_dir:/input:ro \
     --volume $output_dir:/output \
     --volume "$DOCKER_NOOP_VOLUME":/tmp \
-    beyondfa_baseline:v1.1.8
+    beyondfa_da3
 sudo docker volume rm "$DOCKER_NOOP_VOLUME" > /dev/null
+chmod 777 output_dir
+sudo docker volume create "$DOCKER_NOOP_VOLUME" > /dev/null
+sudo docker run     -it     --platform linux/amd64     --network none     --gpus all     --rm     --volume $input_dir:/input:ro     --volume $output_dir:/output     --volume "$DOCKER_NOOP_VOLUME":/tmp     beyondfa_da3
 ```
 # beyond_fa_microstruct_ad
 # beyond_fa_microstruct_ad
