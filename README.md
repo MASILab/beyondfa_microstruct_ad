@@ -21,25 +21,29 @@ To run this Docker:
 
 input_dir=".../input_data"
 output_dir=".../output_data"
-
-mkdir -p $output_dir
-
 DOCKER_NOOP_VOLUME="beyondfa_da3-volume"
+
+# Ensure output directory exists
+mkdir -p "$output_dir"
+
+# Recreate clean temp volume
+sudo docker volume rm "$DOCKER_NOOP_VOLUME" > /dev/null 2>&1
 sudo docker volume create "$DOCKER_NOOP_VOLUME" > /dev/null
+
+# Run container
 sudo docker run \
     -it \
     --platform linux/amd64 \
     --network none \
     --gpus all \
     --rm \
-    --volume $input_dir:/input:ro \
-    --volume $output_dir:/output \
+    --volume "$input_dir":/input:ro \
+    --volume "$output_dir":/output \
     --volume "$DOCKER_NOOP_VOLUME":/tmp \
     beyondfa_da3
-sudo docker volume rm "$DOCKER_NOOP_VOLUME" > /dev/null
-chmod 777 output_dir
-sudo docker volume create "$DOCKER_NOOP_VOLUME" > /dev/null
-sudo docker run     -it     --platform linux/amd64     --network none     --gpus all     --rm     --volume $input_dir:/input:ro     --volume $output_dir:/output     --volume "$DOCKER_NOOP_VOLUME":/tmp     beyondfa_da3
+
+# Fix permissions on output
+sudo chmod -R 777 "$output_dir"
 ```
 # beyond_fa_microstruct_ad
 # beyond_fa_microstruct_ad
