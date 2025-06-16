@@ -1,5 +1,9 @@
 # Beyond FA axial diffusivity
 
+Axial diffusivity refers to the rate of water diffusion along the principal axis of a white matter fiber tract in the brain, as measured by diffusion tensor imaging (DTI).
+
+It represents the diffusivity along the main direction of the white matter tract — that is, parallel to axons.
+
 
 To build this Docker container, clone the repository and run the following command in the root directory:
 
